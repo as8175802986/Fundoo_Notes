@@ -14,8 +14,7 @@ namespace RepositoryLayer.Interface
         public bool ForgetPassword(string email);
         public string Login(UserLogin userlogin);
         List<UserModel> GetAllUsers();
-        //public string encryptpassword(string password);
-        // public string decryptpassword(string password);
+       
 
         
 
