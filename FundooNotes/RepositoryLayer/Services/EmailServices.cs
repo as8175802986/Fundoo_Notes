@@ -12,10 +12,10 @@ namespace RepositoryLayer.Services
 {
     public class EmailServices
     {
-        
+
         public static void sendMail(string email, string token)
         {
-            
+
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
             {
                 client.EnableSsl = true;
@@ -83,4 +83,4 @@ namespace RepositoryLayer.Services
         //    }
         //}
     }
-}
+    }

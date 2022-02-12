@@ -32,11 +32,11 @@ namespace RepositoryLayer.Class
                 user.Phone = userPostModel.Phone;
                 user.Adress = userPostModel.Adress;
                 user.email = userPostModel.email;
-                // StringCipher.Encrypt(userPostModel.password);
-               // user.Password = StringCipher.Encrypt(userPostModel.Password);
+                StringCipher.Encrypt(userPostModel.Password);
+                user.Password = StringCipher.Encrypt(userPostModel.Password);
 
-                user.Password = userPostModel.Password;
-               // user.RegisteredDate = DateTime.Now;
+                
+                user.RegisteredDate = DateTime.Now;
                 dbContext.Users.Add(user);
                 dbContext.SaveChanges();
             }
@@ -114,7 +114,7 @@ namespace RepositoryLayer.Class
             try
             {
                 UserModel checkemail = dbContext.Users.FirstOrDefault(e => e.email == email);
-                //var checkemail = dbContex.Users.FirstOrDefault(e => e.Email == email);
+               
                 if (checkemail != null)
                 {
                     MessageQueue queue;
@@ -188,41 +188,41 @@ namespace RepositoryLayer.Class
                 throw e;
             }
         }
-        //public string EncryptPassword(string password)
-        //{
-        //    try
-        //    {
-        //        byte[] encode = new byte[password.Length];
+        public string EncryptPassword(string password)
+        {
+            try
+            {
+                byte[] encode = new byte[password.Length];
 
-        //        encode = Encoding.UTF8.GetBytes(password);
-        //        //byte encPassword = Convert.FromBase64String(encode);
-        //        string encPassword = Convert.ToBase64String(encode);
-        //        return encPassword;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-        //public string DecryptPassword(string encryptpwd)
-        //{
-        //    try
-        //    {
-        //        UTF8Encoding encodepwd = new UTF8Encoding();
-        //        Decoder Decode = encodepwd.GetDecoder();
-        //        byte[] todecode_byte = Convert.FromBase64String(encryptpwd);
-        //        int charCount = Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
-        //        char[] decoded_char = new char[charCount];
-        //        Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-        //        string decryptpwd = new String(decoded_char);
-        //        return decryptpwd;
-        //    }
-        //    catch (Exception)
-        //    {
+                encode = Encoding.UTF8.GetBytes(password);
+                //byte encPassword = Convert.FromBase64String(encode);
+                string encPassword = Convert.ToBase64String(encode);
+                return encPassword;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public string DecryptPassword(string encryptpwd)
+        {
+            try
+            {
+                UTF8Encoding encodepwd = new UTF8Encoding();
+                Decoder Decode = encodepwd.GetDecoder();
+                byte[] todecode_byte = Convert.FromBase64String(encryptpwd);
+                int charCount = Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+                char[] decoded_char = new char[charCount];
+                Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+                string decryptpwd = new String(decoded_char);
+                return decryptpwd;
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
         private void msmqQueue_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {

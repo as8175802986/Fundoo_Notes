@@ -119,9 +119,6 @@ namespace FundooNotes.Controllers
 
 
         }
-            
-
-
 
         [HttpGet("GetAllUsers")]
         public ActionResult GetAllUsers()
